@@ -6,7 +6,11 @@ import java.awt.Font;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JTextPane;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.awt.event.ActionEvent;
 
 public class PanelRegister extends JPanel
 {
@@ -22,11 +26,14 @@ public class PanelRegister extends JPanel
 	private JTextField tfFamily;
 	private JTextField tfSpecie;
 	private JTextField tfGender;
+	private JFileChooser fcImage;
+	private String rute;
 	/**
 	 * Create the panel.
 	 */
 	public PanelRegister() 
 	{
+		fcImage = new JFileChooser();
 		setBackground(new Color(92, 212, 195));
 		setLayout(null);
 		
@@ -118,6 +125,23 @@ public class PanelRegister extends JPanel
 		add(separator_4);
 		
 		JButton btnSelectPhoto = new JButton("Select");
+		btnSelectPhoto.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				int result = fcImage.showOpenDialog(null);
+				if(result == JFileChooser.APPROVE_OPTION)
+				{
+					File objectFile;
+					objectFile = fcImage.getSelectedFile();
+					rute = objectFile.toString();
+				}
+				else
+				{
+					rute = "";
+				}
+			}
+		});
 		btnSelectPhoto.setBounds(549, 72, 97, 25);
 		add(btnSelectPhoto);
 		
